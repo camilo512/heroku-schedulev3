@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/camilo512/scheduleV3.git"
+    "url": "git+https://github.com/camilo512/heroku-schedulev3.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/camilo512/scheduleV3/issues"
+    "url": "https://github.com/camilo512/heroku-schedulev3/issues"
   },
-  "homepage": "https://github.com/camilo512/scheduleV3#readme"
+  "homepage": "https://github.com/camilo512/heroku-schedulev3#readme"
 }
