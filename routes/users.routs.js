@@ -1,4 +1,5 @@
 const express = require('express');
+const utils = require('pg/lib/utils');
 
 //Middlewear
 const {
@@ -23,14 +24,18 @@ const {
   checkToken,
 } = require('../controller/user.controller');
 
+//Utils
+const { upload } = require('../utils/multer');
+
 const router = express.Router();
 
 router.post(
   '/',
   // protectToken,
   // protectEmployee,
-  createUserValidations,
-  checkValidations,
+  upload.single('profileImg'),
+  // createUserValidations,
+  // checkValidations,
   createUser
 );
 router.post('/login', login);

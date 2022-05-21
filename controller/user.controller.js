@@ -1,6 +1,8 @@
 const bcryp = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const { ref, uploadBytes, getDownloadURL } = require('firebase/storage');
+
 //Models
 const { User } = require('../models/user.model');
 const { Repair } = require('../models/reparir.model');
@@ -10,6 +12,7 @@ const { Comment } = require('../models/comment.model');
 const { catchAsync } = require('../utils/catchAsync');
 const { AppError } = require('../utils/appError');
 const bcrypt = require('bcryptjs/dist/bcrypt');
+const { storage } = require('../utils/firebase');
 
 dotenv.config({ path: './config.env' });
 
@@ -35,6 +38,12 @@ const getUsersId = catchAsync(async (req, res, next) => {
   // const { id } = req.params;
   // const userId = await User.findOne({ where: { id } });
 
+  //Get url from Firebase
+  const imgRef = ref(storage, userId.profileImgUrl);
+  const url = await getDownloadURL(imgRef);
+
+  userId.profileImgUrl = url;
+
   res.status(200).json({
     userId,
   });
@@ -43,7 +52,15 @@ const getUsersId = catchAsync(async (req, res, next) => {
 const createUser = catchAsync(async (req, res, next) => {
   //   console.log(req.body.name)
 
-  const { name, email, password, role, status } = req.body;
+  const { name, email, password, role, profileImgUrl, status } = req.body;
+
+  // console.log(req.file);
+  // console.table(req.body);
+
+  const imgRef = ref(storage, `users/${req.file.originalname}`);
+  const imgUploaded = await uploadBytes(imgRef, req.file.buffer);
+
+  console.log(imgUploaded);
 
   //bycrip
   const salt = await bcryp.genSalt(12);
@@ -55,12 +72,13 @@ const createUser = catchAsync(async (req, res, next) => {
     email,
     password: hashPassword,
     role,
+    profileImgUrl: imgUploaded.metadata.fullPath,
     status,
   });
 
   newUser.password = undefined;
 
-  res.status(201).json({ newUser });
+  res.status(201).json({ status: 'sucess', newUser });
 });
 
 const updateUser = catchAsync(async (req, res, next) => {

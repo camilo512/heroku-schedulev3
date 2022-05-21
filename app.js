@@ -23,6 +23,9 @@ app.use(cors());
 // Enable incoming JSON data
 app.use(express.json());
 
+// Enable incoming From-Data
+app.use(express.urlencoded({ extended: true }));
+
 // Add security helmet
 app.use(helmet());
 
