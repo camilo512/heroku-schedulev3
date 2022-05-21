@@ -41,7 +41,7 @@ const protectToken = catchAsync(async (req, res, next) => {
 });
 
 const protectEmployee = catchAsync(async (req, res, next) => {
-  if (req.sessionUser.role !== 'employee') {
+  if (req.sessionUser.role !== 'admin') {
     return next(new AppError(' Acces not granted, only employee ', 403));
   }
 
