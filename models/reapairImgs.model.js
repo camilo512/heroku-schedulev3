@@ -1,33 +1,21 @@
 const { DataTypes } = require('sequelize');
 const { db } = require('../utils/database');
 
-//users
-const User = db.define('user', {
+//repairImg
+const RepairImg = db.define('repairImg', {
   id: {
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
     type: DataTypes.INTEGER,
   },
-  name: {
+  repairImgUrl: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
+  repairId: {
+    type: DataTypes.INTEGER,
     unique: true,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  profileImgUrl: {
-    type: DataTypes.STRING,
     allowNull: false,
   },
   status: {
@@ -36,4 +24,4 @@ const User = db.define('user', {
   },
 });
 
-module.exports = { User };
+module.exports = { RepairImg };
