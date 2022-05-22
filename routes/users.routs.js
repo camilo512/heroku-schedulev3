@@ -34,8 +34,8 @@ router.post(
   // protectToken,
   // protectEmployee,
   upload.single('profileImg'),
-  // createUserValidations,
-  // checkValidations,
+  createUserValidations,
+  checkValidations,
   createUser
 );
 router.post('/login', login);

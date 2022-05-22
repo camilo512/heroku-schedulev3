@@ -15,7 +15,6 @@ const RepairImg = db.define('repairImg', {
   },
   repairId: {
     type: DataTypes.INTEGER,
-    unique: true,
     allowNull: false,
   },
   status: {

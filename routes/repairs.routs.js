@@ -23,12 +23,23 @@ const {
   getMyRepairsCompleted,
 } = require('../controller/repair.controller');
 
+// Utils
+const { upload } = require('../utils/multer');
+
 const router = express.Router();
 router.use(protectToken);
 
 //http://localhost:4001/api/v1/repairs
 router.get('/', protectEmployee, getAllRepairs);
-router.post('/', createRepairValidations, checkValidations, createRepairs);
+
+router.post(
+  '/',
+  upload.array('repairImgs', 3),
+  createRepairValidations,
+  checkValidations,
+
+  createRepairs
+);
 
 router.get('/me/pending', getMyRepairsPending);
 router.get('/me/completed', getMyRepairsCompleted);
