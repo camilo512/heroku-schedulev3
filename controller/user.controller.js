@@ -71,10 +71,10 @@ const createUser = catchAsync(async (req, res, next) => {
   // console.log(req.file);
   // console.table(req.body);
 
-  const imgRef = ref(storage, `users/${req.file.originalname}`);
+  const imgRef = ref(storage, `users/${Date.now()}-${req.file.originalname}`);
   const imgUploaded = await uploadBytes(imgRef, req.file.buffer);
 
-  console.log(imgUploaded);
+  // console.log(imgUploaded);
 
   //bycrip
   const salt = await bcryp.genSalt(12);
