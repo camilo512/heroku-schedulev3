@@ -13,6 +13,7 @@ const { globalErrorHandler } = require('./controller/errors.controllers');
 const { usersRouter } = require('./routes/users.routs');
 const { repairsRouter } = require('./routes/repairs.routs');
 const { commentsRouter } = require('./routes/comments.routes');
+const { viewsRouter } = require('./routes/views.routes');
 const req = require('express/lib/request');
 // init express app
 const app = express();
@@ -46,6 +47,9 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Endpoints
+
+app.use('/', viewsRouter);
+
 //http://localhost:4001/api/v1/users
 app.use('/api/v1/users', usersRouter);
 
