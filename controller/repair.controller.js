@@ -134,7 +134,7 @@ const getUsersRepairs = catchAsync(async (req, res, next) => {
 
   const repairs = await Repair.findAll({
     where: { userId: id },
-    include: [{ model: User, attributes: { exclude: ['password'] } }],
+    include: [{ model: User, attributes: ['id', 'name', 'email'] }],
   });
 
   res.status(200).json({ repairs });
@@ -148,7 +148,7 @@ const getMyRepairsPending = catchAsync(async (req, res, next) => {
     include: [
       {
         model: User,
-        attributes: { exclude: ['password'] },
+        attributes: ['id', 'name', 'email'],
       },
     ],
   });
@@ -164,7 +164,7 @@ const getMyRepairsCompleted = catchAsync(async (req, res, next) => {
     include: [
       {
         model: User,
-        attributes: { exclude: ['password'] },
+        attributes: ['id', 'name', 'email'],
       },
     ],
   });
