@@ -71,6 +71,23 @@ const getRepairId = catchAsync(async (req, res, next) => {
       message: 'Repair not found given that id',
     });
   }
+  // Get all post´s imgs
+  const repairsPromises = repairs.map(async repair => {
+    const repairImgsPromises = repair.repairImgs.map(async repairImg => {
+      // Get img from firebase
+      const imgRef = ref(storage, repairImg.repairImgUrl);
+      const url = await getDownloadURL(imgRef);
+
+      //Update repairImgUrl prop
+      repairImg.repairImgUrl = url;
+      return repairImg;
+    });
+
+    // Resolve pending promises
+    return await Promise.all(repairImgsPromises);
+  });
+
+  await Promise.all(repairsPromises);
 
   res.status(200).json({
     repairId,
