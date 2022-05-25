@@ -19,6 +19,20 @@ dotenv.config({ path: './config.env' });
 const getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.findAll({
     attributes: { exclude: ['password'] },
+    // include: [
+    //   { model: Repair },
+    //   {
+    //     model: Comment,
+    //     required: false, // Outer Join
+    //     where: { status: 'active' },
+    //     include: [
+    //       {
+    //         model: Repair,
+    //         include: [{ model: User, attributes: ['id', 'name'] }],
+    //       },
+    //     ],
+    //   },
+    // ],
   });
 
   // Map async: you will use this techinque evertyme thah you need some async operations inside of an array

@@ -48,9 +48,22 @@ const getAllRepairs = catchAsync(async (req, res, next) => {
 });
 
 const getRepairId = catchAsync(async (req, res, next) => {
-  const { repairId } = req;
-  // const { id } = req.params;
-  // const repairId = await Repair.findOne({ where: { id } });
+  // const { repairId } = req;
+  const { id } = req.params;
+  const repairId = await Repair.findOne({
+    where: { id },
+    include: [
+      { model: RepairImg, attributes: ['id', 'repairImgUrl'] },
+      { model: User, attributes: ['id', 'name', 'email'] },
+      {
+        model: Comment,
+        attributes: ['id', 'text'],
+        required: false, // Outer Join
+        where: { status: 'active' },
+        include: [{ model: User, attributes: ['id', 'name'] }],
+      },
+    ],
+  });
 
   if (!repairId) {
     return res.status(404).json({
