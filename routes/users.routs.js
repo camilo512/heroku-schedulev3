@@ -31,8 +31,6 @@ const router = express.Router();
 
 router.post(
   '/',
-  // protectToken,
-  // protectEmployee,
   upload.single('profileImg'),
   createUserValidations,
   checkValidations,

@@ -23,6 +23,8 @@ const getAllUsers = catchAsync(async (req, res, next) => {
       { model: Repair },
       {
         model: Comment,
+        required: false, // Outer Join
+        where: { status: 'active' },
         include: [{ model: Repair, include: [{ model: User }] }],
       },
     ],

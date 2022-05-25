@@ -4,7 +4,7 @@ const express = require('express');
 
 const {
   protectToken,
-  protectAccountOwner,
+  protectEmployee,
 } = require('../middlewares/users.middlewares');
 const { commentsExists } = require('../middlewares/comments.middlewares');
 const {
@@ -27,11 +27,12 @@ const router = express.Router();
 router.use(protectToken);
 
 //GET all comments
-router.get('/', getAllComments);
+router.get('/', protectEmployee, getAllComments);
 
 //POST /repairId Create Comment
 router.post(
   '/:repairId',
+  protectEmployee,
   createCommentsValidations,
   checkValidations,
   createComments
@@ -41,7 +42,7 @@ router.post(
 //PATCH /id Update comment
 //DELETE /:id delete comment (status:deleted)
 router
-  .use('/:id', commentsExists)
+  .use('/:id', commentsExists, protectEmployee)
   .route('/:id')
   .get(getACommentsById)
   .patch(updateComment)
