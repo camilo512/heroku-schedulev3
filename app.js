@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
+const path = require('path');
 
 //Controllers
 
@@ -14,7 +15,6 @@ const { usersRouter } = require('./routes/users.routs');
 const { repairsRouter } = require('./routes/repairs.routs');
 const { commentsRouter } = require('./routes/comments.routes');
 const { viewsRouter } = require('./routes/views.routes');
-const req = require('express/lib/request');
 // init express app
 const app = express();
 
@@ -26,6 +26,13 @@ app.use(express.json());
 
 // Enable incoming From-Data
 app.use(express.urlencoded({ extended: true }));
+
+// Set pug as template engine
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+//Enable static assets
+app.use(express.static('public'));
 
 // Add security helmet
 app.use(helmet());

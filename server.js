@@ -16,7 +16,7 @@ db.authenticate()
 initModels();
 
 //{ force: true }
-db.sync()
+db.sync({ force: true })
   .then(() => console.log('Databe synced'))
   .catch(err => console.log(err));
 
