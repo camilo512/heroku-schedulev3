@@ -72,6 +72,11 @@ const getRepairId = catchAsync(async (req, res, next) => {
     });
   }
 
+  const imgRef = ref(storage, repairId.profileImgUrl);
+  const url = await getDownloadURL(imgRef);
+
+  repairId.profileImgUrl = url;
+
   res.status(200).json({
     repairId,
   });
