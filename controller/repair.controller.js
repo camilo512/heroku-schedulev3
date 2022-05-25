@@ -13,7 +13,7 @@ const getAllRepairs = catchAsync(async (req, res, next) => {
   const repairs = await Repair.findAll({
     include: [
       { model: RepairImg, attributes: ['id', 'repairImgUrl'] },
-      { model: User, attributes: { exclude: ['password'] } },
+      { model: User, attributes: ['id', 'name', 'email'] },
       {
         model: Comment,
         attributes: ['id', 'text'],
