@@ -16,6 +16,7 @@ const getAllRepairs = catchAsync(async (req, res, next) => {
       { model: User, attributes: { exclude: ['password'] } },
       {
         model: Comment,
+        attributes: ['id', 'text'],
         required: false, // Outer Join
         where: { status: 'active' },
         include: [{ model: User, attributes: ['id', 'name'] }],
