@@ -12,7 +12,7 @@ const { storage } = require('../utils/firebase');
 const getAllRepairs = catchAsync(async (req, res, next) => {
   const repairs = await Repair.findAll({
     include: [
-      { model: RepairImg },
+      { model: RepairImg, attributes: ['id', 'repairImgUrl'] },
       { model: User, attributes: { exclude: ['password'] } },
       {
         model: Comment,
