@@ -58,11 +58,6 @@ const getRepairId = catchAsync(async (req, res, next) => {
       message: 'Repair not found given that id',
     });
   }
-  //Get url from Firebase
-  const imgRef = ref(storage, repairId.profileImgUrl);
-  const url = await getDownloadURL(imgRef);
-
-  repairId.profileImgUrl = url;
 
   res.status(200).json({
     repairId,
