@@ -72,7 +72,7 @@ const getRepairId = catchAsync(async (req, res, next) => {
     });
   }
   // Get all post´s imgs
-  const repairsPromises = repairs.map(async repair => {
+  const repairsPromises = repairId.map(async repair => {
     const repairImgsPromises = repair.repairImgs.map(async repairImg => {
       // Get img from firebase
       const imgRef = ref(storage, repairImg.repairImgUrl);
@@ -88,7 +88,6 @@ const getRepairId = catchAsync(async (req, res, next) => {
   });
 
   await Promise.all(repairsPromises);
-
   res.status(200).json({
     repairId,
   });
