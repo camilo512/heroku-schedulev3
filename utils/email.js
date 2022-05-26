@@ -39,8 +39,8 @@ class Email {
   }
 
   //send an email to newly create account
-  async sendWelcome() {
-    await this.send('welcome', 'New account', { name: 'Juan' });
+  async sendWelcome(name) {
+    await this.send('welcome', 'New account', { name });
   }
 
   // Send an email when a new repair is create
