@@ -13,6 +13,7 @@ const { catchAsync } = require('../utils/catchAsync');
 const { AppError } = require('../utils/appError');
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const { storage } = require('../utils/firebase');
+const { Email } = require('../utils/email');
 
 dotenv.config({ path: './config.env' });
 
@@ -96,6 +97,8 @@ const createUser = catchAsync(async (req, res, next) => {
     profileImgUrl: imgUploaded.metadata.fullPath,
     status,
   });
+
+  await new Email(newUser.email).sendWelcome();
 
   newUser.password = undefined;
 
